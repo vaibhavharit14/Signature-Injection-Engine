@@ -16,7 +16,7 @@ export type SignField =
     wNorm: number;
     hNorm: number;
     type: "signature" | "image";
-    value: string; 
+    value: string;
   }
   | {
     pageIndex: number;
@@ -40,7 +40,7 @@ export type SignResponse = {
   signedHash: string;
 };
 
-const BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "") || "http://localhost:4000";
+const BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/+$/, "");
 
 async function http<T>(path: string, init: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -61,9 +61,19 @@ export const Api = {
       body: JSON.stringify(payload),
     });
   },
+  uploadPdf(formData: FormData) {
+    return fetch(`${BASE_URL}/upload-pdf`, {
+      method: "POST",
+      body: formData,
+    }).then(async (res) => {
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+      return data as { filename: string; url: string };
+    });
+  },
   getSignedFileUrl(relativeUrl: string) {
-    return relativeUrl.startsWith("/")
-      ? `${BASE_URL}${relativeUrl}`
-      : `${BASE_URL}/${relativeUrl}`;
+    if (!relativeUrl) return "";
+    const cleanPath = relativeUrl.startsWith("/") ? relativeUrl : `/${relativeUrl}`;
+    return `${BASE_URL}${cleanPath}`;
   },
 };

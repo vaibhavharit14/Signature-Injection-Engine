@@ -28,19 +28,10 @@ export default function SignPdfPage() {
         const formData = new FormData();
         formData.append('pdf', file);
 
-        const response = await fetch('http://localhost:4000/upload-pdf', {
-          method: 'POST',
-          body: formData,
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Upload failed');
-        }
+        const data = await Api.uploadPdf(formData);
 
         setPdfId(data.filename);
-        setCustomPdfUrl(null); 
+        setCustomPdfUrl(null);
         setFields([]);
         setResultUrl(null);
         setError(null);
@@ -53,9 +44,9 @@ export default function SignPdfPage() {
   const addField = (type: "text" | "signature" | "image" | "date" | "radio") => {
     const id = Math.random().toString(36).substr(2, 9);
 
-    const offset = fields.length * 0.05; 
-    const startX = 0.15 + (offset % 0.5); 
-    const startY = 0.15 + (offset % 0.5); 
+    const offset = fields.length * 0.05;
+    const startX = 0.15 + (offset % 0.5);
+    const startY = 0.15 + (offset % 0.5);
 
     let newField: FieldWithId;
 
@@ -196,7 +187,7 @@ export default function SignPdfPage() {
         </aside>
 
         <section className="canvas-area">
-          <PdfViewer pdfUrl={customPdfUrl || `http://localhost:4000/files/${pdfId}`} onLoad={handlePdfLoad}>
+          <PdfViewer pdfUrl={customPdfUrl || Api.getSignedFileUrl(`/files/${pdfId}`)} onLoad={handlePdfLoad}>
             {fields.map((field) => (
               <DraggableField
                 key={field.id}

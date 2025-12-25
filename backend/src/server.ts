@@ -16,11 +16,11 @@ if (!fs.existsSync(config.STORAGE_DIR)) {
 app.use("/files", express.static(config.STORAGE_DIR));
 
 mongoose.connect(config.MONGODB_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB error:", err));
+  .then(() => console.log(" MongoDB connected"))
+  .catch(err => console.error(" MongoDB error:", err));
 
 app.use("/", pdfRoutes);
 
 app.listen(config.PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${config.PORT}`);
+  console.log(` Server running on http://localhost:${config.PORT}`);
 });
