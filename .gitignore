@@ -11,7 +11,8 @@ dist-ssr/
 .env.*.local
 
 # Storage (uploaded PDFs - should not be in repo)
-backend/storage/
+backend/storage/*
+!backend/storage/sample.pdf
 
 # Logs
 logs/
