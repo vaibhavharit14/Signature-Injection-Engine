@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { config } from "../config.ts";
+import { config } from "../config";
 
 export async function loadPdfBytes(pdfId: string): Promise<Uint8Array> {
 
@@ -9,7 +9,7 @@ export async function loadPdfBytes(pdfId: string): Promise<Uint8Array> {
 }
 
 export async function saveSignedPdfAndGetUrl(pdfId: string, bytes: Uint8Array): Promise<string> {
-  
+
   const signedName = pdfId.endsWith(".pdf")
     ? pdfId.replace(".pdf", "-signed.pdf")
     : `${pdfId}-signed.pdf`;

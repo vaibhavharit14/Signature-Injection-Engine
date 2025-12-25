@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
 import { PDFDocument, rgb } from "pdf-lib";
-import Audit from "../models/Audit.ts";
-import { sha256 } from "../utils/hash.ts";
-import { loadPdfBytes, saveSignedPdfAndGetUrl } from "../utils/storage.ts";
+import Audit from "../models/Audit";
+import { sha256 } from "../utils/hash";
+import { loadPdfBytes, saveSignedPdfAndGetUrl } from "../utils/storage";
 
-function normToPdf(f: any, pagePt: { W:number; H:number }) {
+function normToPdf(f: any, pagePt: { W: number; H: number }) {
   const xPt = f.xNorm * pagePt.W;
   const yPt = (1 - f.yNorm - f.hNorm) * pagePt.H;
   const wPt = f.wNorm * pagePt.W;
@@ -29,21 +29,21 @@ export async function signPdf(req: Request, res: Response) {
       if (f.type === "signature" || f.type === "image") {
         const base64 = f.value || "";
         if (!base64) continue;
-        
+
         const b64 = base64.includes(",") ? base64.split(",")[1] : base64;
         const imgBytes = Buffer.from(b64, "base64");
         let image;
-        try { 
-          image = await pdfDoc.embedPng(imgBytes); 
-        } catch { 
+        try {
+          image = await pdfDoc.embedPng(imgBytes);
+        } catch {
           try {
-            image = await pdfDoc.embedJpg(imgBytes); 
+            image = await pdfDoc.embedJpg(imgBytes);
           } catch (err) {
             console.error("Failed to embed image:", err);
             continue;
           }
         }
-        
+
         const iw = image.width, ih = image.height;
         const s = Math.min(wPt / iw, hPt / ih);
         const Wp = iw * s, Hp = ih * s;
@@ -51,7 +51,7 @@ export async function signPdf(req: Request, res: Response) {
         const yC = yPt + (hPt - Hp) / 2;
         page.drawImage(image, { x: xC, y: yC, width: Wp, height: Hp });
       } else if (f.type === "radio") {
-     
+
         const centerX = xPt + wPt / 2;
         const centerY = yPt + hPt / 2;
         const radius = Math.min(wPt, hPt) / 3;
@@ -64,12 +64,12 @@ export async function signPdf(req: Request, res: Response) {
           color: (f.value === "true" || f.value === true) ? rgb(0, 0, 0) : undefined,
         });
       } else {
-      
+
         page.drawText(f.value ?? "", {
           x: xPt + 4,
           y: yPt + hPt / 2 - 6,
           size: 11,
-          color: rgb(0,0,0)
+          color: rgb(0, 0, 0)
         });
       }
     }

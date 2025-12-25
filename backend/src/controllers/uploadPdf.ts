@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import multer from "multer";
 import path from "path";
-import { config } from "../config.ts";
+import { config } from "../config";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import { config } from "./config.ts";
-import pdfRoutes from "./routes/pdfRoutes.ts";
+import { config } from "./config";
+import pdfRoutes from "./routes/pdfRoutes";
 import fs from "fs";
 
 const app = express();

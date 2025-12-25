@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { signPdf } from "../controllers/signPdf.ts";
-import { uploadPdf } from "../controllers/uploadPdf.ts";
+import { signPdf } from "../controllers/signPdf";
+import { uploadPdf } from "../controllers/uploadPdf";
 
 const router = Router();
 router.post("/upload-pdf", uploadPdf);

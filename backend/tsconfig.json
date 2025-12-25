@@ -2,19 +2,27 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "NodeNext",
+    "module": "CommonJS",
     "target": "ES2020",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2020"],
-    "types": ["node"],
+    "moduleResolution": "Node",
+    "lib": [
+      "ES2020"
+    ],
+    "types": [
+      "node"
+    ],
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
