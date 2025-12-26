@@ -171,7 +171,7 @@ export default function SignPdfPage() {
             </button>
           </div>
 
-          <div style={{ marginTop: 'auto', borderTop: '1px solid #E2E8F0', paddingTop: '24px' }}>
+          <div className="sidebar-footer">
             {error && <div className="error-msg">{error}</div>}
 
             {resultUrl && (
