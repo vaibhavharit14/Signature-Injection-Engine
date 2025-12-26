@@ -176,6 +176,7 @@ export default function SignPdfPage() {
 
             {resultUrl && (
               <div className="success-card">
+                <div style={{ fontSize: '32px', marginBottom: '12px' }}>✅</div>
                 <h4>Document Ready</h4>
                 <p>Your PDF has been processed with all fields embedded.</p>
                 <a href={resultUrl} target="_blank" rel="noreferrer" className="btn btn-success">
