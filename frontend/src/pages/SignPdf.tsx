@@ -136,10 +136,10 @@ export default function SignPdfPage() {
               style={{ display: "none" }}
               onChange={handlePdfUpload}
             />
-            📄 Upload PDF
+            📄 <span>Upload PDF</span>
           </label>
           <button className="btn btn-primary" onClick={handleBurnIn} disabled={loading || fields.length === 0}>
-            {loading ? "Processing..." : "Burn-In & Download"}
+            {loading ? "Processing..." : <span>Burn-In & Download</span>}
           </button>
         </div>
       </header>

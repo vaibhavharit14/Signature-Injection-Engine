@@ -67,20 +67,34 @@ export default function SignatureModal({ isOpen, onClose, onSave }: SignatureMod
         <div className="modal-overlay">
             <div className="modal-content">
                 <h3>Draw your Signature</h3>
-                <canvas
-                    ref={canvasRef}
-                    width={400}
-                    height={200}
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={stopDrawing}
-                    onMouseLeave={stopDrawing}
-                    onTouchStart={startDrawing}
-                    onTouchMove={draw}
-                    onTouchEnd={stopDrawing}
-                    style={{ border: "1px solid #ccc", background: "#fff", cursor: "crosshair" }}
-                />
-                <div className="modal-actions" style={{ marginTop: 12, display: "flex", gap: 8 }}>
+                <div style={{
+                    border: "1px solid #ccc",
+                    background: "#fff",
+                    cursor: "crosshair",
+                    width: "100%",
+                    height: "200px",
+                    overflow: "hidden",
+                    position: "relative"
+                }}>
+                    <canvas
+                        ref={canvasRef}
+                        width={600}
+                        height={300}
+                        onMouseDown={startDrawing}
+                        onMouseMove={draw}
+                        onMouseUp={stopDrawing}
+                        onMouseLeave={stopDrawing}
+                        onTouchStart={startDrawing}
+                        onTouchMove={draw}
+                        onTouchEnd={stopDrawing}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "block"
+                        }}
+                    />
+                </div>
+                <div className="modal-actions" style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
                     <button className="btn btn-secondary" onClick={clear}>Clear</button>
                     <button className="btn btn-primary" onClick={handleSave}>Save Signature</button>
                     <button className="btn btn-outline" onClick={onClose}>Cancel</button>
